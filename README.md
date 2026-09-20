@@ -112,11 +112,17 @@ file does not appear in the output.
 
 ## Programmatic use
 
-`obfus.py` is a clean import — it guards its entry point and does no I/O or
-argument parsing at import time.
+Everything you need is in **`obfus_core.py`** — about 25 lines, stdlib only,
+no I/O and no argument parsing at import time.
+
+**Copy that file into your project rather than depending on this one.** It is
+CC0, so there is no attribution or license plumbing to do, and there is no
+package to install. The file carries the same advice in a banner comment at
+its top, along with the constraints to respect if you port it. The two CLIs
+are themselves just callers of it.
 
 ```python
-from obfus import pack, unpack, MAGIC, EXT, KEYSPACE
+from obfus_core import pack, unpack, MAGIC, EXT, KEYSPACE
 
 blob  = pack(b"hello")       # bytes -> bytes, 6 bytes longer
 plain = unpack(blob)         # bytes -> bytes, raises ValueError if no key fits
@@ -226,8 +232,9 @@ exactly — `pack` itself is not reproducible, since it draws a random seed.
 ## Layout
 
 ```
-obfus.py            single-file CLI + the pack/unpack core
-obfus_bulk.py       recursive directory CLI, imports from obfus.py
+obfus_core.py       the pack/unpack core — copy this, don't depend on it
+obfus.py            single-file CLI, imports from obfus_core.py
+obfus_bulk.py       recursive directory CLI, imports from obfus_core.py
 tests/              four integration tests + run_all.py
   _common.py        shared helpers (sh, digest, tree, fresh, sample_files)
 .filesamples/       58 committed sample files across 6 type directories

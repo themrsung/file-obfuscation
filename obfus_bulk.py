@@ -27,7 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from obfus import EXT, pack, unpack  # noqa: E402
+from obfus_core import EXT, pack, unpack  # noqa: E402
 
 
 def parse_exts(spec: str | None) -> set[str] | None:

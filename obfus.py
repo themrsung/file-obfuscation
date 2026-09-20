@@ -1,33 +1,5 @@
-import hashlib, os
+"""file-obfuscation — single-file entry point.
 
-MAGIC = b"\x93\x51obf1"
-KEYBITS = 4
-KEYSPACE = 1 << KEYBITS
-
-def _keystream(seed: int, n: int) -> bytes:
-    out, ctr = bytearray(), 0
-    while len(out) < n:
-        out += hashlib.sha256(bytes([seed]) + ctr.to_bytes(4, "little")).digest()
-        ctr += 1
-    return bytes(out[:n])
-
-def _xor(data: bytes, seed: int) -> bytes:
-    return bytes(a ^ b for a, b in zip(data, _keystream(seed, len(data))))
-
-def pack(plaintext: bytes) -> bytes:
-    seed = os.urandom(1)[0] & (KEYSPACE - 1)   # random 4-bit key, discarded after
-    return _xor(MAGIC + plaintext, seed)       # seed is NOT persisted
-
-def unpack(blob: bytes) -> bytes:
-    for seed in range(KEYSPACE):
-        cand = _xor(blob, seed)
-        if cand.startswith(MAGIC):
-            return cand[len(MAGIC):]
-    raise ValueError("no key matched")
-
-"""file-obfuscation — entry point."""
-
-"""
 Encrypt: encrypt file with random key
 Decrypt: decrypt file by bruteforce
 
@@ -41,13 +13,18 @@ args:
 -e cannot be used with -d.
 Decrypting a file whose name does not end in .obfus requires an explicit -o,
 since there is no suffix to strip. Output is refused if it equals the input.
+
+The pack/unpack core lives in obfus_core.py, which is meant to be copied
+rather than depended on; see the banner at the top of that file.
 """
 
 import argparse
 import sys
 from pathlib import Path
 
-EXT = ".obfus"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from obfus_core import EXT, pack, unpack  # noqa: E402
 
 
 def resolve_mode(inp: Path, encrypt: bool, decrypt: bool) -> str:
