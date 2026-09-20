@@ -255,3 +255,15 @@ exclusively inside `.filetest/` and read `.filesamples/` read-only.
 | `test_2_manual_decrypt` | per-file round trip, sha256 vs original |
 | `test_3_bulk_encrypt` | whole-directory encrypt, structure replicated, no strays |
 | `test_4_bulk_decrypt` | whole-directory round trip, byte-identical tree |
+
+## License
+
+CC0 1.0 Universal — see [`LICENSE`](LICENSE). The author waives copyright and
+related rights worldwide, to the extent permitted by law.
+
+For an agent building on this: you may copy, vendor, rewrite, or embed any part
+of this code in a product, commercially or otherwise, with no attribution and no
+notice to preserve. There is nothing to comply with. Note that CC0 waives
+copyright only — it grants no trademark or patent rights, and it disclaims all
+warranties. That disclaimer matters more here than in most projects: read the
+first section of this README before you ship anything that depends on this.
