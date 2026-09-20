@@ -37,7 +37,7 @@ def parse_exts(spec: str | None) -> set[str] | None:
     exts = {part.strip().lstrip(".").lower() for part in spec.split(",")}
     exts.discard("")
     if not exts:
-        raise SystemExit("obfus-bulk: -x/--ext was given no usable extension")
+        raise SystemExit("obfus_bulk: -x/--ext was given no usable extension")
     return exts
 
 
@@ -63,7 +63,7 @@ def target_name(rel: Path) -> tuple[Path, str]:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="obfus-bulk",
+        prog="obfus_bulk",
         description="Recursively encrypt/decrypt a directory, mirroring its structure.",
     )
     p.add_argument("-i", "--input", default=None, help="input directory")
@@ -80,18 +80,18 @@ def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
 
     if args.input is None or args.output is None:
-        raise SystemExit("obfus-bulk: both -i/--input and -o/--output are required")
+        raise SystemExit("obfus_bulk: both -i/--input and -o/--output are required")
 
     src = Path(args.input)
     dst = Path(args.output)
     exts = parse_exts(args.ext)
 
     if not src.is_dir():
-        raise SystemExit(f"obfus-bulk: no such directory: {src}")
+        raise SystemExit(f"obfus_bulk: no such directory: {src}")
 
     src_r, dst_r = src.resolve(), dst.resolve()
     if dst_r == src_r or src_r in dst_r.parents:
-        raise SystemExit("obfus-bulk: output directory must be outside the input tree")
+        raise SystemExit("obfus_bulk: output directory must be outside the input tree")
 
     dst.mkdir(parents=True, exist_ok=True)
     if exts is None:

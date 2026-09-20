@@ -15,7 +15,7 @@ SAMPLES = ROOT / ".filesamples"
 SCRATCH = ROOT / ".filetest"
 
 OBFUS = ROOT / "obfus.py"
-BULK = ROOT / "obfus-bulk.py"
+BULK = ROOT / "obfus_bulk.py"
 
 MAGIC_LEN = 6  # len(obfus.MAGIC)
 

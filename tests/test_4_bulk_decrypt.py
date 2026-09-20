@@ -1,6 +1,6 @@
 """Test 4 -- bulk decrypt (whole directory round trip).
 
-Encrypts .filesamples/ to a scratch tree, then runs obfus-bulk.py back over
+Encrypts .filesamples/ to a scratch tree, then runs obfus_bulk.py back over
 that tree and compares the result to the originals. Self-contained: it does
 its own encrypt pass so it can run without test 3.
 

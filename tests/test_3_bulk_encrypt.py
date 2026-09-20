@@ -1,6 +1,6 @@
 """Test 3 -- bulk encrypt (whole directory).
 
-Runs obfus-bulk.py over .filesamples/ in one shot and verifies the output tree
+Runs obfus_bulk.py over .filesamples/ in one shot and verifies the output tree
 replicates the input structure exactly.
 
 Checks:
