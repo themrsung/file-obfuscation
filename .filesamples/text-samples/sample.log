@@ -1,0 +1,3 @@
+2026-09-20 10:00:01 INFO  service started
+2026-09-20 10:00:05 WARN  cache miss rate high
+2026-09-20 10:00:09 ERROR connection refused
